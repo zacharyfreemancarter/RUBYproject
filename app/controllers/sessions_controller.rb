@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
             session[:user_id] = @user.id
             redirect_to '/orders'
         else
-            flash[:errors] = @user.errors.messages
+            flash[:errors] = "Incorrect Login Information"
             redirect_to "/"
         end
     end
