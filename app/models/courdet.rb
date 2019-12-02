@@ -1,0 +1,2 @@
+class Courdet < ApplicationRecord
+end

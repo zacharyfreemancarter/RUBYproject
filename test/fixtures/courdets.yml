@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  online: false
+  user: one
+  image: MyString
+
+two:
+  online: false
+  user: two
+  image: MyString

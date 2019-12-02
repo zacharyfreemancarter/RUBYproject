@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Austin Bike Courier</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/orders">Order Now <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="/sessions/new">Log In</a>
+            </div>
+        </div>
+    </nav>
+<div class="container text-light mt-5 pt-3 mb-5 pb-5">
+    <h1 style="opacity:.93"class="text-center card bg-dark">My Active Deliveries</h1>
+<% if @myorders %>
+<% @myorders.each do |order| %>
+<div class="card bg-dark text-light mb-2">
+    <div class="card-head">
+        <h3><%= order.pulocation %> - <%= @progress.find(order.step).name %></h3>
+    </div>
+    <div class="card-body">
+        <h6>Pickup: <%= order.puaddress %> @ <%= order.putime %></h6>
+        <h6>Dropoff: <%= order.doaddress %></h6>
+        <h6>Name: <%= order.puname %></h6>
+        <h6>Tip: $<%= order.tip %></h6>
+        <p>Notes: <%= order.notes %> </p>
+        <a href="/courier/orders/<%= order.id %>/update" class="btn btn-primary float-right"><%= @progress.find(order.step).button_name %></a>
+    </div>
+</div>
+<% end %>
+<% end %>
+    <h1 style="opacity:.93"class="text-center card bg-dark">Open Orders</h1>
+<% if @orders %>
+<% @orders.each do |order| %>
+<div class="card bg-dark text-light">
+    <div class="card-head">
+        <h3><%= order.pulocation %> - <%= order.putime %></h3>
+    </div>
+    <div class="card-body">
+        <h6>Pickup: <%= order.puaddress %></h6>
+        <h6>Dropoff: <%= order.doaddress %></h6>
+        <h6>Name: <%= order.puname %></h6>
+        <h6>Tip: $<%= order.tip %></h6>
+        <p>Notes: <%= order.notes %> </p>
+        <a href="/courier/orders/<%= order.id %>/claim" class="btn btn-primary float-right">Claim Order</a>
+    </div>
+</div>
+<% end %>
+<% end %>
+<div class="text-center card bg-dark fixed-bottom" style="opacity:.93">
+    <% if @user.is_online %><a href="/courier/logoff" class="container btn btn-primary">Log Off</a><h1 class="text-success">ONLINE</h1><% end %> 
+    <% if not @user.is_online %><a href="/courier/login" class="btn btn-primary">Log In</a><h1 class=text-danger>OFFLINE</h1> <% end %></div>
+</div>
+

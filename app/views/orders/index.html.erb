@@ -1,0 +1,119 @@
+<%= stylesheet_link_tag "ordersindex.css" %>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Austin Bike Courier</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/orders">Order Now <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/sessions/new">Log In</a>
+        </div>
+        </div>
+</nav>
+<% if @couriers_online.count > 0 %>
+<div class="container mt-3 pt-1">
+<div class="accordion mt-5 card bg-dark text-light" id="accordion2">
+    <div class="card-head text-center">
+        <button class="btn btn-link text-light" type="button" data-toggle="collapse" data-target="#courieraccordion" aria-expanded="true" aria-controls="courieraccordion">
+        <h1 class="text-center"><%= @couriers_online.count %> Couriers Online!</h1>
+        </button>
+    </div>
+    <div id="courieraccordion" class="collapse hide" aria-labelledby="courieraccordion" data-parent="#accordion2">
+        <ul>               
+            <% @couriers_online.each do |courier| %>
+            <li><%= courier.name %></li>
+            <% end %>
+        </ul> 
+    </div>
+</div>
+</div>
+
+<div class="container style="opacity: .93;">
+        <h1 class="text-light text-center">Set Up a Delivery Now</h1>
+        <div class="card bg-dark text-light pt-2 pb-3 text-center">
+            <form action="/orders" method="POST">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <div class="form-row pl-3 pr-3">
+                    <div class="form-group col-4">
+                        <label for="pulocation">Location Name</label>
+                        <input class="form-control" type="text" name="order[pulocation]" id="pulocation">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="puname">Name on Order</label>
+                        <input class="form-control" type="text" name="order[puname]" id="puname">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="putime">Pickup Time</label>
+                        <input class="form-control" type="time" name="order[putime]" id="putime">
+                    </div>
+                </div>
+                <div class="form-row pl-3 pr-3">
+                    <div class="form-group col-8">
+                        <label for="puaddress">Pickup Street Address</label>
+                        <input class="form-control" type="text" name="order[puaddress]" id="puaddress">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="puzipcode">Pickup Zipcode</label>
+                        <input class="form-control" type="text" name="order[puzipcode]" id="puzipcode" value="78701">
+                    </div>
+                </div>
+                <div class="form-row pl-3 pr-3">
+                    <div class="form-group col-8">
+                        <label for="doaddress">Dropoff Street Address</label>
+                        <input class="form-control" type="text" name="order[doaddress]" id="doaddress">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="dozipcode">Dropoff Zipcode</label>
+                        <input class="form-control" type="text" name="order[dozipcode]" id="dozipcode" value="78701">
+                    </div>
+                </div>
+                <div class="form-row pl-3 pr-3">
+                    <div class="form-group col-10">
+                        <label for="notes">Delivery Notes</label>
+                        <input class="form-control" type="text" name="order[notes]" id=notes>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="tip">Tip</label>
+                        <div class="input-container">
+                            <input class=form-control type="text" name="order[tip]" value="5.00">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row pl-3 pr-3">
+                    <input type="submit" class="btn btn-primary col-12" value="Schedule Delivery">
+                </div>
+            </form>
+    </div>
+    <div class="container text-light text-center">
+        <h1>Popular Restaurants</h1>
+    </div>
+    <div class="accordion" id="accordion">
+        <% @businesses.each do |key, v| %>
+        <div class="card bg-dark text-light">
+            <div class="card-head text-center">
+                <button class="btn btn-link text-light" type="button" data-toggle="collapse" data-target="#<%= key[:alias] %>" aria-expanded="true" aria-controls="<%= key[:alias] %>">
+                <h3 class="text-center"><%= key[:name] %> - <%= key[:categories].first[:title] %></h3>
+                </button>
+            </div>
+            <div id="<%= key[:alias] %>" class="collapse hide" aria-labelledby="<%= key[:alias] %>" data-parent="#accordion">
+                <div class="card-body text-center">
+                    <div class="container" style="display: flex; vertical-align: middle; background-image: url('/assets/food1.jpg'); background-repeat: no-repeat; max-width: 400px; height: 300px; background-size: cover;">
+                        <button style="background-color: transparent; border-color: transparent; width:100%;"><h1 class="text-light">Order Now</h1></button>
+                    </div>
+                    <div class="container pt-3">
+                        <a class="text-center text-light container" href="restaurant/<%= key[:url] %>">Yelp Rating: <%= key[:rating] %>/5</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>    
+
+<% end %>
+
+<% if @couriers_online.count == 0 %>
+<card style="top:45%; position:absolute; width:100%" class="text-center bg-dark text-light"><h1>No Couriers are Online, Comeback Later</h1></card>
+<% end %>

@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "ordersindex.css" %>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Austin Bike Courier</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/orders">Order Now <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/sessions/new">Log In</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid card bg-dark text-light text-center" style="position:absolute; top:40%; opacity:.93;">
+    <% if not @courier %>
+    <h1>Waiting for a courier to accept your order from <%= @order.pulocation %></h1>
+    <% end %>
+    <% if @courier %>
+    <h1><%= @courier.name %> is on it!</h1>
+    <div class="card-head">
+        <h1><%= @order.pulocation %></h1>
+    </div>
+    <% end %>
+</div>

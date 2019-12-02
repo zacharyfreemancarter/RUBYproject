@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pulocation: MyString
+  puname: MyString
+  putime: 2019-10-24
+  puaddress: MyString
+  puzipcode: 1
+  doaddress: MyString
+  dozipcode: 1
+  notes: MyText
+  tip: 1.5
+  step: 1
+
+two:
+  pulocation: MyString
+  puname: MyString
+  putime: 2019-10-24
+  puaddress: MyString
+  puzipcode: 1
+  doaddress: MyString
+  dozipcode: 1
+  notes: MyText
+  tip: 1.5
+  step: 1

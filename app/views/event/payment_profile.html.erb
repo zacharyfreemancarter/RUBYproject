@@ -1,0 +1,7 @@
+<% if @user.stripe_uid.present? %>
+       //show something
+<% else %>
+       <a href="https://connect.stripe.com/oauth/authorize?  response_type=code&client_id=<%= ENV['STRIPE_CONNECT_CLIENT_ID'] %>&scope=read_write">set up my free stripe account</a>
+<% end %>
+//this is the link that a user will click on to create their stripe account
+<h1>$<%= @balance.pending.first["amount"].to_f/100 %></h1>
